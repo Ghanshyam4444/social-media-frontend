@@ -1,0 +1,192 @@
+/* Default image styling */
+/* Container that ensures consistent layout */
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-right: 6px;
+}
+
+/* Card layout */
+.card-container {
+    width: 100%;
+    max-width: 36rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Ensures the image stays at a fixed width */
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-image {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: transparent;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-header .ms-2 {
+    margin-left: 10px;
+}
+
+/* Footer actions */
+.card-footer {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.action-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Group the like and comment icons together */
+.like-comment {
+    display: flex;
+    align-items: center;
+}
+
+.action-icon {
+    cursor: pointer;
+    padding: 4px;
+    display: inline-block;
+}
+
+/* Style adjustments for the "like" and "comment" icons */
+.like-comment .action-icon {
+    margin-right: 10px;
+}
+
+/* Like Count */
+.pt-2 {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.py-1 {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+@media (max-width: 576px) {
+    .card-container {
+        width: 100%;
+    }
+
+    .card-image {
+        width: 100%;
+        max-width: none;
+    }
+}
+@media(max-width:207px){
+    .friendname{
+        font-size: 14px;
+    }
+}
+
+
+
+
+/* comment section */
+/* content.css */
+.comment-dialog .MuiDialogContent-root {
+    padding: 16px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.image-section {
+    flex: 1;
+    max-width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 350px;
+    height: 250px;
+    border: 1px solid cyan;
+    box-shadow: 20px;
+}
+
+.modal-image {
+    width: 100%;
+    height: 100%;
+    /* object-fit: contain; */
+}
+
+.comments-section {
+    flex: 1;
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.comments-list {
+    overflow-y: auto;
+    max-height: 300px;
+    padding-right: 8px;
+}
+
+.comment {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 8px 0;
+}
+
+.comment p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.comment-input {
+    margin-bottom: 10px;
+}
+@media (max-width: 768px) {
+    .content-layout {
+        flex-direction: column;
+    }
+
+    .image-section,
+    .comments-section {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .modal-image {
+        max-width: 100%;
+        object-fit: contain;
+    }
+}
+/* content.css */
+

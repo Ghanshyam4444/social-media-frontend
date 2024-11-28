@@ -1,0 +1,28 @@
+.sidebar-nav {
+    margin-left: 20px;
+}
+
+.sidebar-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    color: black;
+}
+.nav-link.active{
+    color:blue;
+}
+
+.fixed-bottom .MuiBottomNavigation-root {
+    padding: 5px;
+    justify-content: space-around;
+}
+
+.fixed-bottom .MuiBottomNavigationAction-root {
+    min-width: 0;
+    max-width: 60px;
+}
+

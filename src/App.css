@@ -1,0 +1,57 @@
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    /* Full height */
+    padding-top: 20px;
+    background: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    z-index: 1000;
+}
+
+/* Content area */
+.main-content {
+    margin-left: 240px;
+    /* padding: 20px; */
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    width: calc(100% - 240px);
+    /* Subtract the sidebar width */
+    min-height: 100vh;
+    /* Ensure it takes full height */
+    background: #f7f7f7;
+    /* Background for the content area */
+}
+
+/* Ensure sidebar links take up available space */
+.sidebar .nav {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* Let the nav take up the available space */
+    justify-content: space-between;
+    /* Distribute space between items */
+    padding-bottom: 20px;
+    /* Optional padding at the bottom */
+}
+
+/* Make the layout responsive on small screens */
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        /* Full width on smaller screens */
+        height: auto;
+        /* Auto height on small screens */
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}

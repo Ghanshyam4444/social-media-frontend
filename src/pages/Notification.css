@@ -1,0 +1,88 @@
+/* Notification container styling */
+.notification-card {
+    max-width: 1000px;
+    margin: auto;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+/* Individual notification items */
+.notification-item {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 20px;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+/* Avatar styling */
+.notification-avatar {
+    width: 55px;
+    height: 55px;
+}
+
+/* Username styling */
+.username {
+    font-weight: 600;
+    margin-bottom: 0;
+    font-size: 1.1rem;
+}
+
+/* Action buttons */
+.action-buttons {
+    gap: 10px;
+}
+
+/* Button styling */
+.accept-btn {
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.decline-btn {
+    color: #757575;
+    border-color: #bdbdbd;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.decline-btn:hover {
+    background-color: #f5f5f5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+
+    /* Stacks buttons below the username */
+    .action-buttons {
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+    }
+
+    .notification-item {
+        flex-wrap: wrap;
+    }
+
+    .username {
+        font-size: 1rem;
+    }
+
+    /* Centers buttons when stacked */
+    .action-buttons button {
+        width: 100%;
+    }
+}
+
+
+.no-notifications {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    font-size: large;
+    /* Adjust height as needed for centering */
+    text-align: center;
+}

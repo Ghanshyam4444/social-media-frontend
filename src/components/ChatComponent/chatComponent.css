@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* friends component css */
+.hide-scrollbar {
+    overflow-y: auto;
+    padding-right: 5px;
+    /* Small padding to avoid scrollbar clipping */
+}
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}

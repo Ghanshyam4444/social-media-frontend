@@ -1,0 +1,107 @@
+/* General styling for SuggestionCard */
+.suggestion-card {
+    margin: 0.5rem 0;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    box-shadow:
+            0 -4px 8px rgba(0, 0, 0, 0.1),
+            0 4px 8px rgba(0, 0, 0, 0.1);
+
+    background-color: #fff;
+}
+
+/* Avatar styling */
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+}
+
+/* Follow button styling */
+.follow-button {
+    text-transform: none;
+    border-radius: 20px;
+    padding: 0.25rem 1rem;
+    font-size: 0.9rem;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 150px;
+}
+
+.follow-button:hover {
+    background-color: #0056b3;
+}
+
+/* Profile details styling */
+.user-info h6 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.user-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 768px) {
+    .suggestion-content {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        text-align: left;
+        padding: 0.5rem;
+        /* Compact padding on smaller screens */
+    }
+
+    /* Profile avatar in the same row as user info */
+    .profile-avatar {
+        flex: 0 0 auto;
+    }
+
+    /* Expand user-info to take up remaining space */
+    .user-info {
+        flex: 1 1 auto;
+    }
+
+    /* Follow button on a new line for small screens */
+    .follow-button-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+}
+
+
+/* remove scrollbar vertical slider */
+
+.Suggestions-box {
+    max-height: 82vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    margin-bottom: 8px;
+
+    /* Hide scrollbar for Webkit browsers */
+    -webkit-overflow-scrolling: touch;
+}
+
+.Suggestions-box::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.Suggestions-box {
+    scrollbar-width: none;
+}
+
+
+
+
+
+

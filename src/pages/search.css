@@ -1,0 +1,20 @@
+@media (max-width: 350px) {
+    .card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        /* Ensure card takes full width on small screens */
+    }
+
+    .card .row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .card .col-3,
+    .card .col-6 {
+        width: 100%;
+        /* Make columns stack vertically */
+        margin-bottom: 10px;
+    }
+}
