@@ -29,12 +29,15 @@ export const AuthProvider = ({ children }) => {
 
   const userAuthentication = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/auth/user", {
-        method: "GET",
-        headers: {
-          Authorization: authorization_token,
-        },
-      });
+      const response = await fetch(
+        "social-media-backend-tau-lilac.vercel.app/api/auth/user",
+        {
+          method: "GET",
+          headers: {
+            Authorization: authorization_token,
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setUser(data);

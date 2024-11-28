@@ -8,7 +8,10 @@ const SocketContext = createContext();
 export const SocketProvider = ({ children, user }) => {
   const { userInfo } = useAuth();
   // const socket = io(ENDPOINT);
-  const socket = useMemo(() => io("http://localhost:8000"), []);
+  const socket = useMemo(
+    () => io("social-media-backend-tau-lilac.vercel.app"),
+    []
+  );
 
   useEffect(() => {
     if (userInfo && userInfo.My_) {
