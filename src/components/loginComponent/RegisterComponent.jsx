@@ -42,13 +42,16 @@ const RegisterComponent = () => {
       setOpenSnackbar(true);
     } else {
       try {
-        const response = await fetch(`${API}/api/auth/register`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userDetail),
-        });
+        const response = await fetch(
+          `social-media-backend-tau-lilac.vercel.app/api/auth/register`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userDetail),
+          }
+        );
 
         const userInfo = await response.json();
         if (response.ok) {

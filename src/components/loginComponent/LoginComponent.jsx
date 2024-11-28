@@ -29,13 +29,16 @@ const LoginComponent = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${API}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userDetail),
-      });
+      const response = await fetch(
+        `social-media-backend-tau-lilac.vercel.app/api/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userDetail),
+        }
+      );
       const userInfo = await response.json();
       if (response.ok) {
         setSnackbarMessage("Login successful");
