@@ -43,7 +43,7 @@ const RegisterComponent = () => {
     } else {
       try {
         const response = await fetch(
-          `social-media-backend-tau-lilac.vercel.app/api/auth/register`,
+          `https://social-media-backend-tau-lilac.vercel.app/api/auth/register`,
           {
             method: "POST",
             headers: {

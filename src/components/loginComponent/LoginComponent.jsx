@@ -30,7 +30,7 @@ const LoginComponent = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `social-media-backend-tau-lilac.vercel.app/api/auth/login`,
+        `https://social-media-backend-tau-lilac.vercel.app/api/auth/login`,
         {
           method: "POST",
           headers: {

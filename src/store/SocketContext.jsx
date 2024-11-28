@@ -9,7 +9,7 @@ export const SocketProvider = ({ children, user }) => {
   const { userInfo } = useAuth();
   // const socket = io(ENDPOINT);
   const socket = useMemo(
-    () => io("social-media-backend-tau-lilac.vercel.app"),
+    () => io("https://social-media-backend-tau-lilac.vercel.app/"),
     []
   );
 
