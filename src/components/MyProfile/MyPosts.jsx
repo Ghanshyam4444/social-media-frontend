@@ -74,14 +74,17 @@ const MyPosts = ({ userId }) => {
   const deletePost = async (post) => {
     const postId = post._id;
     try {
-      const response = await fetch(`${API}/api/upload/deletePost`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: authorization_token,
-        },
-        body: JSON.stringify({ postId }),
-      });
+      const response = await fetch(
+        `https://social-media-backend-production-f304.up.railway.app/api/upload/deletePost`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: authorization_token,
+          },
+          body: JSON.stringify({ postId }),
+        }
+      );
       if (response.ok) {
         getAllPosts();
       }
