@@ -101,12 +101,12 @@ const NavLinks = () => {
 
   return (
     <div className="d-none d-md-block sidebar-nav">
-      {/* <img
+      <img
         src="\homepage-images\logo.jpg"
         width="45px"
         height="45px"
         style={{ borderRadius: "50%" }}
-      /> */}
+      />
       <ul className="nav flex-column">
         <li className="nav-item">
           <NavLink className="nav-link my-2" to="/">
