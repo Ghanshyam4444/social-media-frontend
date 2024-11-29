@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   const userAuthentication = async () => {
     try {
       const response = await fetch(
-        "https://social-media-backend-tau-lilac.vercel.app/api/auth/user",
+        "social-media-backend-production-f304.up.railway.app/api/auth/user",
         {
           method: "GET",
           headers: {

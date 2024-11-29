@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Async Thunk for fetching posts
+// https://social-media-backend-tau-lilac.vercel.app
 export const fetchPosts = createAsyncThunk(
   "posts/fetchPosts",
   async ({ page, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://social-media-backend-tau-lilac.vercel.app/api/content/getFriendsPosts?page=${page}&limit=3`,
+        `social-media-backend-production-f304.up.railway.app/api/content/getFriendsPosts?page=${page}&limit=3`,
         {
           method: "GET",
           headers: {
@@ -34,7 +35,7 @@ export const toggleLikePost = createAsyncThunk(
   async ({ postId, isLiked, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://social-media-backend-tau-lilac.vercel.app/api/content/toggleLike`,
+        `social-media-backend-production-f304.up.railway.app/api/content/toggleLike`,
         {
           method: "POST",
           headers: {
@@ -62,7 +63,7 @@ export const toggleSavePost = createAsyncThunk(
   async ({ postId, isSaved, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://social-media-backend-tau-lilac.vercel.app/api/content/toggleSave`,
+        `social-media-backend-production-f304.up.railway.app/api/content/toggleSave`,
         {
           method: "POST",
           headers: {
