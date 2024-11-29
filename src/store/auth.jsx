@@ -24,13 +24,14 @@ export const AuthProvider = ({ children }) => {
   const logout_user = () => {
     setToken("");
     setUser("");
+    localStorage.removeItem("userInfo");
     return localStorage.removeItem("token");
   };
 
   const userAuthentication = async () => {
     try {
       const response = await fetch(
-        "https://social-media-backend-tau-lilac.vercel.app/api/auth/user",
+        "social-media-backend-production-f304.up.railway.app/api/auth/user",
         {
           method: "GET",
           headers: {

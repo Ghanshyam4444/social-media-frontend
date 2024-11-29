@@ -1,4 +1,10 @@
-import { Grid, Typography, Box, IconButton } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  Box,
+  IconButton,
+  CircularProgress,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +12,12 @@ import { Movie, Delete } from "@mui/icons-material";
 
 const MyPosts = ({ userId }) => {
   const [Posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { authorization_token, user, API } = useAuth();
   const navigate = useNavigate();
 
   const getAllPosts = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${API}/api/auth/getAllPostsById/${userId}`,
@@ -33,6 +41,8 @@ const MyPosts = ({ userId }) => {
       }
     } catch (error) {
       console.error("Error fetching posts:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -106,7 +116,18 @@ const MyPosts = ({ userId }) => {
 
   return (
     <div style={{ paddingTop: "20px" }}>
-      {Posts.length > 0 ? (
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            py: 2,
+          }}
+        >
+          <CircularProgress size={50} />
+        </Box>
+      ) : Posts.length > 0 ? (
         <Grid container spacing={2}>
           {Posts.map((post, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={post._id}>

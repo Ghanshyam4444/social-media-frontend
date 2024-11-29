@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { Movie } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../store/auth";
@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 const SavedItems = () => {
   const [SavedPosts, setSavedPosts] = useState([]);
   const { authorization_token, API } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const getSavedItems = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${API}/api/content/getSavedPosts`, {
         method: "GET",
@@ -25,6 +27,8 @@ const SavedItems = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,7 +84,18 @@ const SavedItems = () => {
 
   return (
     <div style={{ paddingTop: "20px" }}>
-      {SavedPosts.length > 0 ? (
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            py: 2,
+          }}
+        >
+          <CircularProgress size={50} />
+        </Box>
+      ) : SavedPosts.length > 0 ? (
         <Grid container spacing={2}>
           {SavedPosts.map((SavedItem, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={SavedItem._id}>

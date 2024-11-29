@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Divider } from "@mui/material";
+import { Avatar, CircularProgress, Divider, Box } from "@mui/material";
 import { useAuth } from "../../store/auth";
 import { useSocket } from "../../store/SocketContext";
 
@@ -12,6 +12,7 @@ const Friends = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [chats, setChats] = useState([]);
   const [myId, setMyId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setMyId(user._id);
@@ -92,6 +93,7 @@ const Friends = () => {
   };
 
   const searchFriends = async (query) => {
+    setIsLoading(true);
     try {
       const response = await fetch(
         `${API}/api/auth/searchFriends?query=${query}`,
@@ -109,18 +111,18 @@ const Friends = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const findChats = async () => {
+    setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://social-media-backend-tau-lilac.vercel.app/api/chat/loadChats`,
-        {
-          method: "GET",
-          headers: { Authorization: authorization_token },
-        }
-      );
+      const response = await fetch(`${API}/api/chat/loadChats`, {
+        method: "GET",
+        headers: { Authorization: authorization_token },
+      });
       const data = await response.json();
       if (response.ok) {
         setChats(data);
@@ -129,6 +131,8 @@ const Friends = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -162,7 +166,18 @@ const Friends = () => {
         style={{ maxHeight: "calc(100vh - 100px)", overflowY: "auto" }}
       >
         {searchQuery === "" ? (
-          chats.length === 0 ? (
+          isLoading ? (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                py: 2,
+              }}
+            >
+              <CircularProgress size={24} />
+            </Box>
+          ) : chats.length === 0 ? (
             <p className="d-flex justify-content-center">No chats available</p>
           ) : (
             chats.map((chat) => {
@@ -248,6 +263,17 @@ const Friends = () => {
               );
             })
           )
+        ) : isLoading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              py: 2,
+            }}
+          >
+            <CircularProgress size={24} />
+          </Box>
         ) : friends.length === 0 ? (
           <p className="d-flex justify-content-center">No friends found</p>
         ) : (

@@ -48,6 +48,7 @@ const MessagesContainer = () => {
   const [NewMessageSend, setNewMessageSend] = useState(false);
   const [NewMessageRecieve, setNewMessageRecieve] = useState(false);
   const [IsTyping, setIsTyping] = useState(false);
+  const [isLoading, setIsloading] = useState(false);
 
   const loadNewMessages = async () => {
     if (!chatID || !hasMore) return;
@@ -201,7 +202,7 @@ const MessagesContainer = () => {
   useEffect(() => {
     const loadMessages = async () => {
       if (!chatID) return;
-
+      setIsloading(true);
       try {
         const response = await fetch(
           `${API}/api/message/accessMessages/${chatID}`,
@@ -226,6 +227,8 @@ const MessagesContainer = () => {
         }
       } catch (error) {
         console.error("Error loading messages:", error);
+      } finally {
+        setIsloading(false);
       }
     };
 
@@ -236,6 +239,7 @@ const MessagesContainer = () => {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
+    setNewMessage("");
 
     try {
       const response = await fetch(`${API}/api/message`, {
@@ -253,7 +257,6 @@ const MessagesContainer = () => {
         socket.emit("message from new friend", { selectedChat, reciever });
         setMessages((prev) => [...prev, data]);
         setSkip((prev) => prev + 1);
-        setNewMessage("");
         setNewMessageSend(true);
       } else {
         console.error("Error sending message");
@@ -325,7 +328,18 @@ const MessagesContainer = () => {
 
   return (
     <>
-      {selectedChat ? (
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            py: 2,
+          }}
+        >
+          <CircularProgress size={35} />
+        </Box>
+      ) : selectedChat ? (
         <Box
           display="flex"
           flexDirection="column"

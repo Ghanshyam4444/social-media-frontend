@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../store/auth";
-import { Avatar, Button } from "@mui/material";
+import { Avatar, Box, Button, CircularProgress } from "@mui/material";
 import { useSocket } from "../store/SocketContext";
 import { useNavigate } from "react-router-dom";
 import { AccessAlarm, PersonAdd, PersonRemove } from "@mui/icons-material";
@@ -9,9 +9,11 @@ import "../components/home/suggestion.css";
 const Followers = () => {
   const [followerUsers, setFollowerUsers] = useState([]);
   const { authorization_token, API } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const socket = useSocket();
   const findFollowerUsers = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${API}/api/request/followedUsers`, {
         method: "GET",
@@ -25,6 +27,8 @@ const Followers = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -113,7 +117,18 @@ const Followers = () => {
     <>
       <div className="">
         <div className="Suggestions-box mt-3">
-          {followerUsers.length > 0 ? (
+          {isLoading ? (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                py: 2,
+              }}
+            >
+              <CircularProgress size={50} />
+            </Box>
+          ) : followerUsers.length > 0 ? (
             followerUsers.map((followerUser) => (
               <div
                 className="card border-0 mt-2 py-1 shadow-sm mb-1"

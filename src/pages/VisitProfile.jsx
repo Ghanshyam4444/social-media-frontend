@@ -186,55 +186,33 @@ const VisitProfile = () => {
               : null}
           </Avatar>
         </div>
-        <div className="ms-3">
-          <h2 className="ms-2">{searchedUser.name}</h2>
-          <div className="d-flex align-items-center mb-2">
-            <span className="mx-2">{searchedUser.totalPosts} Posts</span>
-            <span className="mx-2">{searchedUser.following} Following</span>
-            <span className="mx-2">{searchedUser.followers} followers</span>
-          </div>
-          <div className="button-container">
-            {followStatus === "Follow" && (
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={handleFollow}
-              >
-                Follow
-              </Button>
-            )}
-            {followStatus === "Requested" && (
-              <Button
-                variant="contained"
-                color="secondary"
-                size="small"
-                startIcon={<AccessAlarm />}
-                style={{ textTransform: "none" }}
-                onClick={handleRequest}
-              >
-                Requested
-              </Button>
-            )}
-            {followStatus === "Unfollow" && (
-              <Button
-                variant="contained"
-                color="secondary"
-                size="small"
-                onClick={handleUnfollow}
-              >
-                Unfollow
-              </Button>
-            )}
-            <Button
-              className="me-2"
-              variant="outlined"
-              color="primary"
-              size="small"
-              onClick={handleMessageClick}
-            >
-              Message
-            </Button>
+        <div
+          style={{
+            textAlign: "center", // Center-align content for small screens
+            marginLeft: "5px",
+          }}
+          className="text-sm-start" // Align to the start for large screens
+        >
+          <h2
+            className="me-2"
+            style={{ fontSize: "1.5rem", wordBreak: "break-word" }}
+          >
+            {searchedUser.name}
+          </h2>
+
+          <div
+            className="d-flex align-items-center justify-content-center justify-content-lg-start flex-wrap"
+            style={{
+              gap: "8px", // Add spacing between items for small screens
+            }}
+          >
+            <span className="me-2">{searchedUser.totalPosts} Posts</span>
+            <span className="me-2" style={{ cursor: "pointer" }}>
+              {searchedUser.followers} Followers
+            </span>
+            <span className="me-2" style={{ cursor: "pointer" }}>
+              {searchedUser.following} Following
+            </span>
           </div>
         </div>
       </div>

@@ -17,6 +17,7 @@ import {
   BookmarkBorder,
   AddCircle,
   Settings,
+  Logout,
 } from "@mui/icons-material";
 import MyPosts from "../components/MyProfile/MyPosts";
 import SavedItems from "../components/MyProfile/SavedItems";
@@ -26,7 +27,7 @@ import { useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
   const [pic, setPic] = useState("");
-  const { authorization_token, user, API } = useAuth();
+  const { authorization_token, user, API, logout_user } = useAuth();
   const [userInfo, setUserInfo] = useState();
 
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ const MyProfile = () => {
   const [updatedBio, setUpdatedBio] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [newPic, setNewPic] = useState(false);
 
   // State for the menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -107,6 +109,7 @@ const MyProfile = () => {
         setOpenSnackbar(true);
         setSnackbarMessage("profile pic updated successfully");
         setSnackbarSeverity("#4CAF50");
+        setNewPic(true);
         setPic(data.url.toString());
         setUploading(false);
       })
@@ -120,10 +123,11 @@ const MyProfile = () => {
   };
 
   useEffect(() => {
-    if (pic) {
+    if (newPic) {
       updateImage();
+      setNewPic(false);
     }
-  }, [pic]);
+  }, [newPic]);
 
   useEffect(() => {
     if (user) {
@@ -214,6 +218,11 @@ const MyProfile = () => {
       setPic(user.Profile_Pic);
     }
   }, [user]);
+
+  const LogOutfromthisDevice = () => {
+    logout_user();
+    navigate("/login");
+  };
 
   return (
     <div style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}>
@@ -362,6 +371,9 @@ const MyProfile = () => {
             {isPrivate ? "Set to Public" : "Set to Private"}
           </MenuItem>
           <MenuItem onClick={navigateToSuggestions}>Suggestions</MenuItem>
+          <MenuItem onClick={LogOutfromthisDevice}>
+            <Logout className="me-3" /> Logout
+          </MenuItem>
         </Menu>
       </div>
       <EditProfile
