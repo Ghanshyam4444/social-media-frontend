@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   const userAuthentication = async () => {
     try {
       const response = await fetch(
-        "social-media-backend-production-f304.up.railway.app/api/auth/user",
+        "https://social-media-backend-production-f304.up.railway.app/api/auth/user",
         {
           method: "GET",
           headers: {
