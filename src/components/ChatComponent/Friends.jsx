@@ -68,17 +68,14 @@ const Friends = () => {
 
   const handleFriendClick = async (friend) => {
     try {
-      const response = await fetch(
-        `https://social-media-backend-tau-lilac.vercel.app/api/chat/makeChat`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: authorization_token,
-          },
-          body: JSON.stringify({ userId: friend._id }),
-        }
-      );
+      const response = await fetch(`${API}/api/chat/makeChat`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorization_token,
+        },
+        body: JSON.stringify({ userId: friend._id }),
+      });
       const data = await response.json();
 
       if (response.ok) {
@@ -97,7 +94,7 @@ const Friends = () => {
   const searchFriends = async (query) => {
     try {
       const response = await fetch(
-        `https://social-media-backend-tau-lilac.vercel.app/api/auth/searchFriends?query=${query}`,
+        `${API}/api/auth/searchFriends?query=${query}`,
         {
           method: "GET",
           headers: { Authorization: authorization_token },

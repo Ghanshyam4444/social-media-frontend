@@ -238,17 +238,14 @@ const MessagesContainer = () => {
     if (!newMessage.trim()) return;
 
     try {
-      const response = await fetch(
-        `https://social-media-backend-tau-lilac.vercel.app/api/message`,
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: authorization_token,
-          },
-          body: JSON.stringify({ newMessage, chatID }),
-        }
-      );
+      const response = await fetch(`${API}/api/message`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: authorization_token,
+        },
+        body: JSON.stringify({ newMessage, chatID }),
+      });
 
       const data = await response.json();
       if (response.ok) {
