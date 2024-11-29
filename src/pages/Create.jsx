@@ -58,13 +58,16 @@ const Create = () => {
     );
 
     try {
-      const response = await fetch(`${API}/api/upload/posts`, {
-        method: "POST",
-        headers: {
-          Authorization: authorization_token,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        `https://social-media-backend-production-f304.up.railway.app/api/upload/posts`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: authorization_token,
+          },
+          body: formData,
+        }
+      );
       const data = await response.json();
 
       if (response.ok) {
