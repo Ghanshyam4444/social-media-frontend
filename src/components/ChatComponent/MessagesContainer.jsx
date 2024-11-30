@@ -344,7 +344,7 @@ const MessagesContainer = () => {
         <Box
           display="flex"
           flexDirection="column"
-          height={isLargeScreen ? "100vh" : "88vh"}
+          height={isLargeScreen ? "100vh" : "87vh"}
           justifyContent="space-between"
           sx={{
             border: "1px solid #ddd",
