@@ -240,6 +240,7 @@ const MessagesContainer = () => {
     e.preventDefault();
     if (!newMessage.trim()) return;
     setNewMessage("");
+    document.getElementById("messageInput").focus();
 
     try {
       const response = await fetch(`${API}/api/message`, {
@@ -468,6 +469,7 @@ const MessagesContainer = () => {
             <Box sx={{ display: "flex", padding: 2, alignItems: "center" }}>
               {/* Input Field with Send Icon inside */}
               <TextField
+                id="messageInput"
                 variant="outlined"
                 size="small"
                 fullWidth
