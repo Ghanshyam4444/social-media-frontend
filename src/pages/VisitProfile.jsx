@@ -189,7 +189,7 @@ const VisitProfile = () => {
         <div
           style={{
             textAlign: "center", // Center-align content for small screens
-            marginLeft: "5px",
+            marginLeft: "15px",
           }}
           className="text-sm-start" // Align to the start for large screens
         >
@@ -207,12 +207,52 @@ const VisitProfile = () => {
             }}
           >
             <span className="me-2">{searchedUser.totalPosts} Posts</span>
-            <span className="me-2" style={{ cursor: "pointer" }}>
-              {searchedUser.followers} Followers
-            </span>
-            <span className="me-2" style={{ cursor: "pointer" }}>
-              {searchedUser.following} Following
-            </span>
+            <span className="me-2">{searchedUser.followers} Followers</span>
+            <span className="me-2">{searchedUser.following} Following</span>
+          </div>
+
+          <div className="button-container mt-2">
+            {followStatus === "Follow" && (
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={handleFollow}
+              >
+                Follow
+              </Button>
+            )}
+            {followStatus === "Requested" && (
+              <Button
+                variant="contained"
+                color="secondary"
+                size="small"
+                startIcon={<AccessAlarm />}
+                style={{ textTransform: "none" }}
+                onClick={handleRequest}
+              >
+                Requested
+              </Button>
+            )}
+            {followStatus === "Unfollow" && (
+              <Button
+                variant="contained"
+                color="secondary"
+                size="small"
+                onClick={handleUnfollow}
+              >
+                Unfollow
+              </Button>
+            )}
+            <Button
+              className="me-2"
+              variant="outlined"
+              color="primary"
+              size="small"
+              onClick={handleMessageClick}
+            >
+              Message
+            </Button>
           </div>
         </div>
       </div>
