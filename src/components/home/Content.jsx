@@ -363,7 +363,8 @@ const Content = () => {
             style={{
               textAlign: "center",
               color: "grey",
-              marginTop: "20px",
+              marginTop: "10px",
+              marginBottom: "8px",
               fontSize: "1.2rem",
             }}
           >
