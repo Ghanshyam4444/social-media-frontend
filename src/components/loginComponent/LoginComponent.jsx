@@ -13,8 +13,8 @@ import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
   const [userDetail, setUserDetail] = useState({
-    email: "",
-    password: "",
+    email: "ghanshyammangla@gmail.com",
+    password: "mangla",
   });
   const { storeTokenInLS, API } = useAuth();
   const navigate = useNavigate();
