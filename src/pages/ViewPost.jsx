@@ -33,6 +33,7 @@ const ViewPost = () => {
   const [postDetails, setPostDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newComment, setNewComment] = useState("");
@@ -101,33 +102,57 @@ const ViewPost = () => {
   }
 
   const handleLikeToggle = async () => {
+    if (isProcessing) return; // Prevent multiple rapid clicks
+    setIsProcessing(true);
+
     try {
       const postId = postDetails._id;
-      const isLiked = !postDetails.isLiked;
+      const newIsLiked = !postDetails.isLiked;
+
+      // Optimistic UI Update
       setPostDetails((prev) => {
         if (!prev) return null;
         return {
           ...prev,
           likes: prev.isLiked ? prev.likes - 1 : prev.likes + 1,
-          isLiked: !prev.isLiked,
+          isLiked: newIsLiked,
         };
       });
+
+      // API Call
       const response = await fetch(`${API}/api/content/toggleLike`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: authorization_token,
         },
-        body: JSON.stringify({ postId, isLiked }),
+        body: JSON.stringify({ postId, isLiked: newIsLiked }),
       });
 
       if (!response.ok) {
-        console.log("error");
-      } else {
-        const data = await response.json();
+        throw new Error("Failed to update like status");
       }
+
+      // Use API response to ensure accurate state
+      const data = await response.json();
+      setPostDetails((prev) => ({
+        ...prev,
+        likes: data.likes, // Ensure sync with backend
+        isLiked: data.isLiked,
+      }));
     } catch (error) {
       console.error(error);
+      // Revert state if API call fails
+      setPostDetails((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          likes: prev.isLiked ? prev.likes + 1 : prev.likes - 1,
+          isLiked: !prev.isLiked,
+        };
+      });
+    } finally {
+      setIsProcessing(false); // Allow further clicks
     }
   };
 
