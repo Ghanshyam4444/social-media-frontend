@@ -16,7 +16,7 @@ const LoginComponent = () => {
     email: "ghanshyammangla@gmail.com",
     password: "mangla",
   });
-  const { storeTokenInLS, API } = useAuth();
+  const { storeTokenInLS, API, setUserInfo } = useAuth();
   const navigate = useNavigate();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -36,12 +36,13 @@ const LoginComponent = () => {
         },
         body: JSON.stringify(userDetail),
       });
-      const userInfo = await response.json();
+      const userInfo1 = await response.json();
       if (response.ok) {
         setSnackbarMessage("Login successful");
         setSnackbarSeverity("#4CAF50");
-        storeTokenInLS(userInfo.token);
-        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        storeTokenInLS(userInfo1.token);
+        localStorage.setItem("userInfo", JSON.stringify(userInfo1));
+        setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
         navigate(`/profile`);
       } else {
         setSnackbarMessage("Invalid email or password");

@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, CircularProgress, Divider, Box } from "@mui/material";
+import {
+  Avatar,
+  CircularProgress,
+  Divider,
+  Box,
+  useMediaQuery,
+} from "@mui/material";
 import { useAuth } from "../../store/auth";
 import { useSocket } from "../../store/SocketContext";
 
@@ -66,6 +72,8 @@ const Friends = () => {
       socket.off("adding-new-chat", handleNewChat);
     };
   }, [selectedChat, socket]);
+
+  const isSmallScreen = useMediaQuery("(max-width: 768px)");
 
   const handleFriendClick = async (friend) => {
     try {
@@ -163,7 +171,10 @@ const Friends = () => {
 
       <div
         className="hide-scrollbar"
-        style={{ maxHeight: "calc(100vh - 100px)", overflowY: "auto" }}
+        style={{
+          maxHeight: `calc(100vh - ${isSmallScreen ? 160 : 100}px)`,
+          overflowY: "auto",
+        }}
       >
         {searchQuery === "" ? (
           isLoading ? (

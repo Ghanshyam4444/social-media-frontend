@@ -19,7 +19,7 @@ const RegisterComponent = () => {
     confirmPassword: "",
     phone: "",
   });
-  const { storeTokenInLS, API } = useAuth();
+  const { storeTokenInLS, API, setUserInfo } = useAuth();
   const navigate = useNavigate();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -50,7 +50,7 @@ const RegisterComponent = () => {
           body: JSON.stringify(userDetail),
         });
 
-        const userInfo = await response.json();
+        const userInfo1 = await response.json();
         if (response.ok) {
           setSnackbarMessage("Register successful");
           setSnackbarSeverity("#4CAF50");
@@ -61,11 +61,12 @@ const RegisterComponent = () => {
             password: "",
             confirmPassword: "",
           });
-          storeTokenInLS(userInfo.token);
-          localStorage.setItem("userInfo", JSON.stringify(userInfo));
+          storeTokenInLS(userInfo1.token);
+          localStorage.setItem("userInfo", JSON.stringify(userInfo1));
+          setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
           navigate(`/profile`);
         } else {
-          setSnackbarMessage(userInfo.msg);
+          setSnackbarMessage(userInfo1.msg);
           setSnackbarSeverity("red");
         }
         setOpenSnackbar(true);

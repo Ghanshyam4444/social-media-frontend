@@ -23,6 +23,7 @@ const VisitProfile = () => {
   } = useAuth();
   const [searchedUser, setSearchedUser] = useState("");
   const [followStatus, setFollowStatus] = useState("Follow"); // "Follow", "Requested", or "Unfollow"
+  const id1 = params.id;
 
   const findUserDetails = async () => {
     try {
@@ -210,50 +211,53 @@ const VisitProfile = () => {
             <span className="me-2">{searchedUser.followers} Followers</span>
             <span className="me-2">{searchedUser.following} Following</span>
           </div>
-
-          <div className="button-container mt-2">
-            {followStatus === "Follow" && (
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                onClick={handleFollow}
-              >
-                Follow
-              </Button>
-            )}
-            {followStatus === "Requested" && (
-              <Button
-                variant="contained"
-                color="secondary"
-                size="small"
-                startIcon={<AccessAlarm />}
-                style={{ textTransform: "none" }}
-                onClick={handleRequest}
-              >
-                Requested
-              </Button>
-            )}
-            {followStatus === "Unfollow" && (
-              <Button
-                variant="contained"
-                color="secondary"
-                size="small"
-                onClick={handleUnfollow}
-              >
-                Unfollow
-              </Button>
-            )}
-            <Button
-              className="me-2"
-              variant="outlined"
-              color="primary"
-              size="small"
-              onClick={handleMessageClick}
-            >
-              Message
-            </Button>
-          </div>
+          {user._id !== id1 && (
+            <>
+              <div className="button-container mt-2">
+                {followStatus === "Follow" && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    onClick={handleFollow}
+                  >
+                    Follow
+                  </Button>
+                )}
+                {followStatus === "Requested" && (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                    startIcon={<AccessAlarm />}
+                    style={{ textTransform: "none" }}
+                    onClick={handleRequest}
+                  >
+                    Requested
+                  </Button>
+                )}
+                {followStatus === "Unfollow" && (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                    onClick={handleUnfollow}
+                  >
+                    Unfollow
+                  </Button>
+                )}
+                <Button
+                  className="me-2"
+                  variant="outlined"
+                  color="primary"
+                  size="small"
+                  onClick={handleMessageClick}
+                >
+                  Message
+                </Button>
+              </div>
+            </>
+          )}
         </div>
       </div>
 

@@ -19,11 +19,10 @@ export const SocketProvider = ({ children, user }) => {
     } else {
       console.log("user is not defined");
     }
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+    //   return () => {
+    //     socket.disconnect();
+    //   };
+  }, [userInfo]);
 
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
