@@ -6,7 +6,7 @@ export const fetchPosts = createAsyncThunk(
   async ({ page, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/content/getFriendsPosts?page=${page}&limit=3`,
+        `https://social-media-backend-9exd.onrender.com/api/content/getFriendsPosts?page=${page}&limit=3`,
         {
           method: "GET",
           headers: {
@@ -34,7 +34,7 @@ export const toggleLikePost = createAsyncThunk(
   async ({ postId, isLiked, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/content/toggleLike`,
+        `https://social-media-backend-9exd.onrender.com/api/content/toggleLike`,
         {
           method: "POST",
           headers: {
@@ -62,7 +62,7 @@ export const toggleSavePost = createAsyncThunk(
   async ({ postId, isSaved, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/content/toggleSave`,
+        `https://social-media-backend-9exd.onrender.com/api/content/toggleSave`,
         {
           method: "POST",
           headers: {

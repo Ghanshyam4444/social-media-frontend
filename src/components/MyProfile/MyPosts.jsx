@@ -75,7 +75,7 @@ const MyPosts = ({ userId }) => {
     const postId = post._id;
     try {
       const response = await fetch(
-        `http://localhost:8000/api/upload/deletePost`,
+        `https://social-media-backend-9exd.onrender.com/api/upload/deletePost`,
         {
           method: "POST",
           headers: {

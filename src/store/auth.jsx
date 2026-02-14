@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
   const userAuthentication = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/auth/user",
+        "https://social-media-backend-9exd.onrender.com/api/auth/user",
         {
           method: "GET",
           headers: {

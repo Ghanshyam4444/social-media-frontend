@@ -9,7 +9,7 @@ export const SocketProvider = ({ children, user }) => {
   const { userInfo } = useAuth();
   // const socket = io(ENDPOINT);
   const socket = useMemo(
-    () => io("http://localhost:8000"),
+    () => io("https://social-media-backend-9exd.onrender.com"),
     []
   );
 

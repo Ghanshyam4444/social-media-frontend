@@ -59,7 +59,7 @@ const Create = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/upload/posts`,
+        `https://social-media-backend-9exd.onrender.com/api/upload/posts`,
         {
           method: "POST",
           headers: {
