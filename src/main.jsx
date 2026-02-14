@@ -7,6 +7,7 @@ import { Provider } from "react-redux"; // Redux Provider
 import store from "./redux/store.jsx"; // Import the Redux store
 import { AuthProvider, useAuth } from "./store/auth.jsx";
 import { SocketProvider } from "./store/SocketContext.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const Root = () => {
   const { user } = useAuth(); // Access authenticated user
@@ -24,7 +25,9 @@ const Root = () => {
 };
 
 createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <Root />
-  </AuthProvider>
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+    <AuthProvider>
+      <Root />
+    </AuthProvider>
+  </GoogleOAuthProvider>
 );

@@ -9,7 +9,7 @@ export const SocketProvider = ({ children, user }) => {
   const { userInfo } = useAuth();
   // const socket = io(ENDPOINT);
   const socket = useMemo(
-    () => io("https://social-media-backend-production-f304.up.railway.app"),
+    () => io("http://localhost:8000"),
     []
   );
 

@@ -6,7 +6,7 @@ export const fetchPosts = createAsyncThunk(
   async ({ page, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://social-media-backend-production-f304.up.railway.app/api/content/getFriendsPosts?page=${page}&limit=3`,
+        `http://localhost:8000/api/content/getFriendsPosts?page=${page}&limit=3`,
         {
           method: "GET",
           headers: {
@@ -34,7 +34,7 @@ export const toggleLikePost = createAsyncThunk(
   async ({ postId, isLiked, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://social-media-backend-production-f304.up.railway.app/api/content/toggleLike`,
+        `http://localhost:8000/api/content/toggleLike`,
         {
           method: "POST",
           headers: {
@@ -62,7 +62,7 @@ export const toggleSavePost = createAsyncThunk(
   async ({ postId, isSaved, token }, thunkAPI) => {
     try {
       const response = await fetch(
-        `https://social-media-backend-production-f304.up.railway.app/api/content/toggleSave`,
+        `http://localhost:8000/api/content/toggleSave`,
         {
           method: "POST",
           headers: {
@@ -95,7 +95,24 @@ const postsSlice = createSlice({
     hasMore: true,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    syncBookmarkPost: (state, action) => {
+      const { postId, isSaved } = action.payload;
+
+      const post = state.items.find((p) => p._id === postId);
+      if (post) {
+        post.isSaved = isSaved;
+      }
+    },
+    syncLikePost: (state, action) => {
+      const { postId, isLiked, likes } = action.payload;
+      const post = state.items.find((p) => p._id === postId);
+      if (post) {
+        post.isLiked = isLiked;
+        post.likes = likes;
+      }
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state) => {
@@ -129,4 +146,5 @@ const postsSlice = createSlice({
   },
 });
 
+export const { syncBookmarkPost,syncLikePost } = postsSlice.actions;
 export default postsSlice.reducer;

@@ -33,9 +33,13 @@ import {
   fetchPosts,
   toggleLikePost,
   toggleSavePost,
+  syncBookmarkPost,
+  syncLikePost,
 } from "../../features/posts/postsSlice";
+import { useSocket } from "../../store/SocketContext";
 
 const Content = () => {
+  const socket = useSocket();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { authorization_token, user, API } = useAuth();
@@ -65,11 +69,76 @@ const Content = () => {
   }, [dispatch, authorization_token]);
 
   // Handle like toggle
-  const handleLikeToggle = (postId, isLiked) => {
-    dispatch(toggleLikePost({ postId, isLiked, token: authorization_token }));
+  // const handleLikeToggle = (postId, isLiked) => {
+  //   dispatch(toggleLikePost({ postId, isLiked, token: authorization_token }));
+  // };
+
+  // const handleSave = (postId, isSaved) => {
+  //   dispatch(toggleSavePost({ postId, isSaved, token: authorization_token }));
+  // };
+
+  // Handle real-time like toggle
+  const handleLikeToggle = async (postId, isLiked) => {
+    try {
+      const response = await fetch(`${API}/api/content/toggleLike`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorization_token,
+        },
+        body: JSON.stringify({ postId, isLiked }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // 🔴 emit backend-correct data
+        socket.emit("like-update", {
+          userId: user._id,
+          postId,
+          isLiked: data.isLiked,
+          likes: data.likes,
+        });
+
+        // ⚡ optimistic update
+        dispatch(
+          syncLikePost({
+            postId,
+            isLiked: data.isLiked,
+            likes: data.likes,
+          }),
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-  const handleSave = (postId, isSaved) => {
-    dispatch(toggleSavePost({ postId, isSaved, token: authorization_token }));
+
+  //real time save updates
+  const handleSave = async (postId, isSaved) => {
+    try {
+      const response = await fetch(`${API}/api/content/toggleSave`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorization_token,
+        },
+        body: JSON.stringify({ postId, isSaved }),
+      });
+
+      if (response.ok) {
+        socket.emit("bookmark-update", {
+          userId: user._id, // or user.My_
+          postId,
+          isSaved,
+        });
+
+        // Optimistic update (optional but recommended)
+        dispatch(syncBookmarkPost({ postId, isSaved }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // Open comment dialog
@@ -149,6 +218,24 @@ const Content = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [hasMore, loading, page, authorization_token]);
+
+  //real time bookmark effect
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("like-updated", (data) => {
+      dispatch(syncLikePost(data));
+    });
+
+    socket.on("bookmark-updated", ({ postId, isSaved }) => {
+      dispatch(syncBookmarkPost({ postId, isSaved }));
+    });
+
+    return () => {
+      socket.off("like-update");
+      socket.off("bookmark-updated");
+    };
+  }, [dispatch]);
 
   const getRelativeTime = (timestamp) => {
     const now = new Date();
@@ -277,7 +364,7 @@ const Content = () => {
                       e.target.style.display = "none";
                       e.target.insertAdjacentHTML(
                         "afterend",
-                        `<p style="text-align: center; color: gray; margin:40px; ">Video cannot be loaded.</p>`
+                        `<p style="text-align: center; color: gray; margin:40px; ">Video cannot be loaded.</p>`,
                       );
                     }}
                   >

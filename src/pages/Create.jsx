@@ -59,7 +59,7 @@ const Create = () => {
 
     try {
       const response = await fetch(
-        `https://social-media-backend-production-f304.up.railway.app/api/upload/posts`,
+        `http://localhost:8000/api/upload/posts`,
         {
           method: "POST",
           headers: {

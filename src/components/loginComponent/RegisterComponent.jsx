@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useAuth } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 const RegisterComponent = () => {
   const [userDetail, setUserDetail] = useState({
@@ -41,6 +42,7 @@ const RegisterComponent = () => {
       setSnackbarSeverity("red");
       setOpenSnackbar(true);
     } else {
+      console.log("working");
       try {
         const response = await fetch(`${API}/api/auth/register`, {
           method: "POST",
@@ -71,7 +73,7 @@ const RegisterComponent = () => {
         }
         setOpenSnackbar(true);
       } catch (error) {
-        setSnackbarMessage("An error occurred, please try again");
+        setSnackbarMessage("An error occurred, please try again", error);
         setSnackbarSeverity("red");
         setOpenSnackbar(true);
       }
@@ -166,6 +168,38 @@ const RegisterComponent = () => {
         >
           Register
         </Button>
+        <Box sx={{ mt: 2 }}>
+          <GoogleLogin
+            text="signup_with"
+            onSuccess={async (credentialResponse) => {
+              try {
+                const response = await fetch(`${API}/api/auth/google`, {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    credential: credentialResponse.credential,
+                  }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                  storeTokenInLS(data.token);
+                  localStorage.setItem("userInfo", JSON.stringify(data));
+                  setUserInfo(data);
+                  navigate("/profile");
+                }
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            onError={() => {
+              console.log("Google Login Failed");
+            }}
+          />
+        </Box>
       </form>
 
       <Snackbar
