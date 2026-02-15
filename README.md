@@ -1,3 +1,14 @@
+During the transition of the bookmark functionality from a non-real-time approach to a real-time system, several challenges were encountered:
+
+1. Bookmark status became inconsistent between API responses and real-time socket events.
+
+2. Bookmark events were emitted before the database update completed.
+
+3. Race conditions caused incorrect bookmark count.
+
+4. Multiple browser tabs showed out-of-sync bookmark states.
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
